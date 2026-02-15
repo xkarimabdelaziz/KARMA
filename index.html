@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كارما - منصة تعليمية ذكية | Karma Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/brain-icon.svg">
+
+    <meta name="description" content="كارما هي منصة تعليمية مدعومة بالذكاء الاصطناعي تتكيف مع الطلاب ذوي تشتت الانتباه، عسر القراءة، والصم والبكم.">
+    <meta name="theme-color" content="#005B96">
+
+    <style>
+        /* Global Settings */
+        :root {
+            --primary: #005B96;       
+            --primary-dark: #003D66;  
+            --primary-light: #CCEBFF; 
+            --text-main: #2D3436;     
+            --text-light: #636E72;    
+            --bg-body: #FFFFFF;       
+            --bg-light: #F8F9FA;      
+            --accent-adhd: #FF6B6B;   
+            --accent-dyslexia: #4ECDC4; 
+            --accent-deaf: #FFD166;    
+            --sdg-color: #E5243B;
+            --egypt-vision: #007A3D;
+            --glass: rgba(255, 255, 255, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            line-height: 1.7;
+            color: var(--text-main);
+            background-color: var(--bg-body);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-light); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+        /* Navigation */
+        header {
+            background-color: var(--glass);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon { color: var(--primary); font-size: 32px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .logo-text { font-size: 28px; font-weight: 900; color: var(--text-main); letter-spacing: -1px; }
+        .logo-text span { color: var(--primary); }
+
+        .nav-links { display: flex; list-style: none; gap: 30px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 700; font-size: 15px; transition: 0.3s; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--primary); transition: 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0, 91, 150, 0.2);
+        }
+
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(0, 91, 150, 0.3); background: var(--primary-dark); }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            background: radial-gradient(circle at top right, var(--primary-light) 0%, #ffffff 40%);
+        }
+
+        .hero-content { display: flex; align-items: center; gap: 50px; }
+        .hero-text { flex: 1.2; }
+        .hero-image { flex: 0.8; position: relative; }
+        .hero-image img { width: 100%; filter: drop-shadow(0 20px 50px rgba(0,0,0,0.1)); transition: 0.5s; }
+        .hero-image img:hover { transform: scale(1.02) rotate(-1deg); }
+
+        .tagline-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--primary-light);
+            color: var(--primary);
+        }
+
+        .hero h1 { font-size: 3.5rem; line-height: 1.2; margin-bottom: 25px; font-weight: 900; color: #1A1A1A; }
+        .hero h1 span { color: var(--primary); }
+        .hero p { font-size: 1.25rem; color: var(--text-light); margin-bottom: 40px; max-width: 600px; }
+        .hero-buttons { display: flex; gap: 20px; }
+
+        .social-link-btn {
+            background: white;
+            color: var(--text-main);
+            border: 2px solid var(--primary-light);
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .social-link-btn:hover { background: var(--primary-light); border-color: var(--primary); transform: translateY(-3px); }
+
+        /* Stats Section */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; margin-top: 50px; }
+        .stat-card { 
+            background: white; padding: 40px 20px; border-radius: 24px; 
+            text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            border: 1px solid #f1f1f1; transition: 0.4s;
+        }
+        .stat-card:hover { transform: translateY(-10px); border-color: var(--primary-light); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .stat-number { font-size: 3rem; font-weight: 900; color: var(--primary); display: block; margin-bottom: 5px; }
+        .stat-desc { font-weight: 700; color: var(--text-main); font-size: 0.9rem; }
+
+        /* Strategy Section */
+        .impact-section { padding: 100px 0; background-color: var(--bg-light); }
+        .vision-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 40px; margin-top: 50px; }
+        
+        .vision-card {
+            background: white; border-radius: 30px; padding: 45px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.03);
+        }
+        .vision-card h3 { font-size: 1.6rem; margin-bottom: 25px; display: flex; align-items: center; gap: 15px; }
+        
+        .strategy-item { margin-bottom: 20px; display: flex; gap: 15px; }
+        .strategy-icon { 
+            width: 45px; height: 45px; background: var(--bg-light); 
+            border-radius: 12px; display: flex; align-items: center; 
+            justify-content: center; flex-shrink: 0; color: var(--sdg-color);
+            font-size: 20px;
+        }
+        .egypt .strategy-icon { color: var(--egypt-vision); }
+        .strategy-content h4 { font-size: 1.05rem; margin-bottom: 5px; color: var(--text-main); }
+        .strategy-content p { font-size: 0.9rem; color: var(--text-light); }
+
+        /* Technology Flow */
+        .flowchart-section { padding: 100px 0; text-align: center; }
+        .flow-container { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 60px; flex-wrap: wrap; direction: ltr; }
+        .flow-step {
+            background: white; border: 2px solid #f1f1f1; padding: 30px 20px; 
+            border-radius: 20px; width: 230px; transition: 0.4s;
+        }
+        .flow-step:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .flow-step i { font-size: 30px; color: var(--primary); margin-bottom: 20px; }
+        .flow-step h4 { margin-bottom: 10px; font-size: 1.1rem; }
+        .flow-step p { font-size: 0.85rem; color: var(--text-light); }
+
+        /* Personas Section */
+        .personas { padding: 100px 0; background: #fff; }
+        .persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .persona-card { 
+            padding: 50px 40px; border-radius: 30px; background: var(--bg-light);
+            border: 1px solid transparent; transition: 0.4s;
+        }
+        .persona-card:hover { background: white; border-color: var(--primary-light); transform: scale(1.02); }
+        .persona-card ul { list-style: none; margin-top: 25px; }
+        .persona-card li { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 0.95rem; }
+        .persona-card li i { color: var(--primary); font-size: 14px; }
+
+        /* Footer */
+        footer { background: #1A1A1A; color: #fff; padding: 80px 0 40px; }
+        footer h4 { color: #fff; margin-bottom: 25px; font-size: 1.2rem; }
+        footer a { color: #B2BEC3; text-decoration: none; transition: 0.3s; }
+        footer a:hover { color: var(--primary-light); }
+        
+        .footer-social-links { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
+        .footer-social-links a { 
+            width: 45px; height: 45px; background: rgba(255,255,255,0.05); 
+            display: flex; align-items: center; justify-content: center; 
+            border-radius: 12px; font-size: 20px; transition: 0.3s;
+        }
+        .footer-social-links a:hover { background: var(--primary); color: white; transform: translateY(-5px); }
+
+        .gdg-credits-footer {
+            margin-top: 30px; padding: 15px 25px;
+            background: rgba(255,255,255,0.03); border-radius: 15px;
+            display: inline-flex; align-items: center; gap: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-bottom { 
+            margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center; color: #636E72; font-weight: 600; font-size: 1.1rem;
+        }
+        .heart-icon { color: #ff7675; animation: heartBeat 1.5s infinite; margin: 0 5px; }
+        @keyframes heartBeat { 0% { transform: scale(1); } 15% { transform: scale(1.3); } 30% { transform: scale(1); } 45% { transform: scale(1.3); } 100% { transform: scale(1); } }
+
+        @media (max-width: 992px) {
+            .hero-content { flex-direction: column; text-align: center; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-buttons { justify-content: center; flex-wrap: wrap; }
+            .vision-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fas fa-brain logo-icon"></i>
+                    <div class="logo-text">كار<span>ما</span></div>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#impact">الأرقام</a></li>
+                    <li><a href="#strategy">الإستراتيجية</a></li>
+                    <li><a href="#how-it-works">التكنولوجيا</a></li>
+                    <li><a href="#features">المميزات</a></li>
+                    <li><button class="cta-button" onclick="document.getElementById('survey').scrollIntoView()">جرب الآن</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="tagline-badge">
+                        <i class="fas fa-star"></i> GDG Solution Challenge 2026 Submission
+                    </div>
+                    <h1>مستقبل التعليم <span>أصبح متاحاً للجميع</span></h1>
+                    <p>منصة "كارما" تعيد صياغة المحتوى التعليمي لحظياً باستخدام الذكاء الاصطناعي ليتناسب مع احتياجات الطلاب العصبية والحسية المختلفة.</p>
+                    <div class="hero-buttons">
+                        <button class="cta-button" onclick="document.getElementById('features').scrollIntoView()">استكشف المنصة</button>
+                        <a href="https://linkedin.com/company/karmainclusive" target="_blank" class="social-link-btn">
+                            <i class="fab fa-linkedin"></i> تابعنا على LinkedIn
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://signconnect.digital/assets/hero-img-2.png" alt="Karma AI Platform">
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">10%</span>
+                    <p class="stat-desc">عسر القراءة عالمياً</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">1 / 20</span>
+                    <p class="stat-desc">طالب يعاني من ADHD</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">1.5M</span>
+                    <p class="stat-desc">من الصم والبكم بمصر</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">100%</span>
+                    <p class="stat-desc">محتوى مخصص رقمياً</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="impact-section" id="strategy">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 2.5rem; font-weight: 800;">رؤية تتجاوز الحدود</h2>
+                <p style="color: var(--text-light);">نلتزم بالمعايير العالمية والمحلية لتمكين ذوي الهمم تعليمياً.</p>
+            </div>
+
+            <div class="vision-grid">
+                <div class="vision-card">
+                    <h3 style="color: var(--sdg-color);"><i class="fas fa-globe"></i> أهداف التنمية المستدامة (SDGs)</h3>
+                    <div class="strategy-item">
+                        <div class="strategy-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="strategy-content">
+                            <h4>الهدف 4: التعليم الجيد</h4>
+                            <p>ضمان التعليم الشامل والمنصف عبر أدوات تزيل العوائق المعرفية أمام الطلاب ذوي التنوع العصبي.</p>
+                        </div>
+                    </div>
+                    <div class="strategy-item">
+                        <div class="strategy-icon"><i class="fas fa-equals"></i></div>
+                        <div class="strategy-content">
+                            <h4>الهدف 10: الحد من أوجه عدم المساواة</h4>
+                            <p>تمكين الطلاب ذوي الهمم من الوصول لنفس الفرص التعليمية، مما يعزز دمجهم الاجتماعي والاقتصادي.</p>
+                        </div>
+                    </div>
+                    <div class="strategy-item">
+                        <div class="strategy-icon"><i class="fas fa-briefcase"></i></div>
+                        <div class="strategy-content">
+                            <h4>الهدف 8: العمل اللائق والنمو الاقتصادي</h4>
+                            <p>تأهيل الطلاب لسوق العمل الحديث عبر تزويدهم بالمهارات التقنية بلغة تناسب قدراتهم.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vision-card egypt">
+                    <h3 style="color: var(--egypt-vision);"><i class="fas fa-flag"></i> رؤية مصر 2030</h3>
+                    <div class="strategy-item">
+                        <div class="strategy-icon"><i class="fas fa-users"></i></div>
+                        <div class="strategy-content">
+                            <h4>محور العدالة الاجتماعية</h4>
+                            <p>تحقيق تكافؤ الفرص في التعلم الرقمي وضمان عدم ترك أي طالب خلف الركب.</p>
+                        </div>
+                    </div>
+                    <div class="strategy-item">
+                        <div class="strategy-icon"><i class="fas fa-lightbulb"></i></div>
+                        <div class="strategy-content">
+                            <h4>محور الابتكار والبحث العلمي</h4>
+                            <p>استخدام الذكاء الاصطناعي كأداة وطنية لحل مشكلات التعليم المزمنة وتحويل مصر لمركز تكنولوجي.</p>
+                        </div>
+                    </div>
+                    <div class="strategy-item">
+                        <div class="strategy-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <div class="strategy-content">
+                            <h4>استراتيجية التحول الرقمي</h4>
+                            <p>بناء "المواطن الرقمي المصري" من خلال رقمنة المناهج بأسلوب تفاعلي شامل.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="flowchart-section" id="how-it-works">
+        <div class="container">
+            <h2 style="font-size: 2.2rem; font-weight: 800;">التكنولوجيا المحركة لـ "كارما"</h2>
+            <div class="flow-container">
+                <div class="flow-step">
+                    <i class="fas fa-upload"></i>
+                    <h4>المدخلات</h4>
+                    <p>رفع النصوص أو الدروس التعليمية الخام.</p>
+                </div>
+                <div class="flow-step">
+                    <i class="fas fa-brain"></i>
+                    <h4>معالجة Gemini</h4>
+                    <p>تحويل المحتوى لخرائط ذهنية ولغة إشارة.</p>
+                </div>
+                <div class="flow-step">
+                    <i class="fas fa-magic"></i>
+                    <h4>التكيّف اللحظي</h4>
+                    <p>تخصيص الواجهة بناءً على ملف الطالب.</p>
+                </div>
+                <div class="flow-step" style="background: var(--primary); color: white;">
+                    <i class="fas fa-check-circle" style="color: white;"></i>
+                    <h4 style="color:white;">النتيجة</h4>
+                    <p style="color:rgba(255,255,255,0.8)">تعلم فعال بدون عوائق حسية.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="personas" id="features">
+        <div class="container">
+            <div class="persona-grid">
+                <div class="persona-card">
+                    <h3 style="color:var(--accent-adhd)"><i class="fas fa-bolt"></i> طلاب ADHD</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> وضع التركيز (Focus Mode)</li>
+                        <li><i class="fas fa-check-circle"></i> مهام قصيرة (Micro-tasks)</li>
+                        <li><i class="fas fa-check-circle"></i> نظام مكافآت لتحفيز الاستمرارية</li>
+                    </ul>
+                </div>
+                <div class="persona-card">
+                    <h3 style="color:var(--accent-dyslexia)"><i class="fas fa-font"></i> عسر القراءة</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> خط OpenDyslexic مدمج</li>
+                        <li><i class="fas fa-check-circle"></i> قارئ صوتي ذكي (AI Voice)</li>
+                        <li><i class="fas fa-check-circle"></i> تباين ألوان مريح للعين</li>
+                    </ul>
+                </div>
+                <div class="persona-card">
+                    <h3 style="color:var(--accent-deaf)"><i class="fas fa-hands"></i> الصم والبكم</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> ترجمة فورية لإشارة 3D</li>
+                        <li><i class="fas fa-check-circle"></i> ملخصات بصرية كاملة</li>
+                        <li><i class="fas fa-check-circle"></i> قاموس إشاري تفاعلي</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="survey" style="padding: 100px 0; background: linear-gradient(45deg, var(--primary-dark), var(--primary)); color: white; text-align: center;">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">كن جزءاً من التغيير</h2>
+            <p style="margin-bottom: 40px; font-size: 1.1rem; opacity: 0.9;">ساهم برأيك لنتمكن من تطوير الخوارزميات بشكل أدق لخدمة الطلاب.</p>
+            <a href="https://signconnect.digital/survey/KARMA.html" target="_blank" class="cta-button" style="background: white; color: var(--primary); padding: 15px 45px; font-size: 1.2rem;">شارك في الاستبيان <i class="fas fa-arrow-left" style="margin-right:10px"></i></a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px;">
+                <div>
+                    <a href="#" class="logo" style="margin-bottom: 20px;">
+                        <div class="logo-text" style="color:#fff">كار<span>ما</span></div>
+                    </a>
+                    <p style="color: #636E72; max-width: 400px;">منصة تعليمية تهدف لدمج ذوي الهمم في المجتمع الرقمي باستخدام تقنيات الذكاء الاصطناعي، تم تطويرها للمشاركة في تحدي حلول Google.</p>
+                    
+                    <div class="gdg-credits-footer">
+                        <img src="gdg.png" width="35" alt="GDG">
+                        <span style="font-weight: 700; font-size: 0.9rem; color: #fff;">GDG Solution Challenge 2026</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h4>روابط سريعة</h4>
+                    <ul style="list-style: none; display: grid; gap: 12px;">
+                        <li><a href="#impact">الإحصائيات والأرقام</a></li>
+                        <li><a href="#strategy">الرؤية والأهداف</a></li>
+                        <li><a href="#how-it-works">التكنولوجيا المستخدمة</a></li>
+                        <li><a href="mailto:admin@amrbedir.me">تواصل معنا</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4>تابعنا على السوشيال ميديا</h4>
+                    <p style="color: #636E72; font-size: 0.9rem; margin-bottom: 15px;">كن أول من يعرف آخر تحديثات منصة كارما الشاملة.</p>
+                    <div class="footer-social-links">
+                        <a href="https://linkedin.com/company/karmainclusive" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.facebook.com/share/1CHGqvZSAF/" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/karmainclusive/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://x.com/Karma_inclucive" target="_blank" title="X (Twitter)"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.tiktok.com/@karma_inclusive" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                &copy; 2026 مشروع كارما. صنع بكل حب <i class="fas fa-heart heart-icon"></i>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
